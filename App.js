@@ -1,80 +1,75 @@
-import { StatusBar } from 'expo-status-bar';
 import {
     StyleSheet,
     Text,
     View,
     SafeAreaView,
-    ScrollView, Pressable,
+    ScrollView,
+    Pressable, Button,
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Login from "./pages/login";
 
 // icons
 import {AntDesign, MaterialIcons, Entypo, Ionicons} from "@expo/vector-icons";
 
+const Tab = createBottomTabNavigator();
 function HomeScreen(){
     return(
-      <SafeAreaView>
-        <ScrollView>
-          <Pressable>
-              <Text>
-                goals
-              </Text>
-          </Pressable>
-          <Pressable onpress={GoalsScreen}>
-              <Text>
-                goals
-              </Text>
-          </Pressable>
-          <Pressable>
-              <Text>
-                goals
-              </Text>
-          </Pressable>
-        </ScrollView>
-      </SafeAreaView>
-    )
+        <SafeAreaView style = {styles.container}>
+            <View style = {styles.header}>
+                <Text style = {styles.heading}>Home</Text>
+            </View>
+
+            <ScrollView>
+
+                <Pressable
+                    style = {styles.container2}>
+                    <Text style={styles.title}>Grade: </Text>
+                </Pressable>
+                <Pressable style = {styles.container2}>
+                    <Text style={styles.title}>Grade: </Text>
+                </Pressable>
+                <Pressable
+                    style = {styles.container2}
+                    onPress = {GoalsScreen}
+
+                >
+                    <Text style={styles.title}>Grade: </Text>
+                </Pressable>
+            </ScrollView>
+
+        </SafeAreaView>
+    );
 }
 
 function GoalsScreen(){
     return(
-        <SafeAreaView>
-            <Text>
-                this is goals screen
-            </Text>
-        </SafeAreaView>
+        <Text>Goals</Text>
     )
 }
-
-function SettingsScreen(){
-    return(
-        <SafeAreaView>
-            <Text>
-
-            </Text>
-        </SafeAreaView>
-    )
-}
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-      <NavigationContainer>
+      <NavigationContainer >
           <SafeAreaView style={styles.container}>
-              <Tab.Navigator>
+              <Tab.Navigator
+                  screenOptions={{headerShown: false}}>
                   <Tab.Screen name="Home" component={HomeScreen}
                               options={{
-                                  tabBarLabel: 'Home',
+                                  tabBarLabel:() => {return null},
+
                                   tabBarIcon: () => (
                                       <Entypo name="home" size={24} color="black" />
                                   ),
                               }}
                   />
-                  <Tab.Screen name="Settings" component={SettingsScreen}
+                  <Tab.Screen name="Add" component={GoalsScreen}
                               options={{
-                                  tabBarLabel: 'Settings',
+                                  tabBarLabel:() => {return null},
                                   tabBarIcon: () => (
-                                      <Ionicons name="settings" size={24} color="black" />
+                                      <Entypo name="add-to-list" size={24} color="black" />
                                   ),
                               }}
                   />
@@ -84,17 +79,30 @@ export default function App() {
 
       </NavigationContainer>
 
-
   );
 }
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: "column",
         backgroundColor: '#fff',
-        //marginTop: 45,
+        paddingTop: 20,
         //alignItems: 'center',
         //justifyContent: 'center',
+    },
+    container2: {
+        flexDirection: "row",
+        backgroundColor: "lightblue",
+        justifyContent: "space-between",
+        padding: 10,
+        //alignItems: "center",
+        width: "90%",
+        alignSelf: "center",
+        borderRadius: 10,
+        marginVertical: 10,
+        marginBottom: 0,
     },
     header: {
         flexDirection: "row",
@@ -130,7 +138,6 @@ const styles = StyleSheet.create({
 });
 
 
-
 /*
 * forklare MISS ideen
 * Hvor han ville ha begrensa det
@@ -164,5 +171,12 @@ const styles = StyleSheet.create({
 * bruker vilkår
 *   standard
 * sikkerhet
+*
+* */
+
+
+/*
+* hvor konkrete/nøye burde vi være på figma?
+* anbefalt neste steg
 *
 * */
